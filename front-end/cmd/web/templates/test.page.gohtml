@@ -47,7 +47,7 @@
                 method: 'POST',
             }
 
-            fetch("http:\/\/localhost:8080", body)
+            fetch({{.BrokerURL}}, body)
             .then(response => response.json())
             .then(data => {
                 sent.innerHTML = "empty post request";
@@ -80,7 +80,7 @@
                 headers: headers
             }
 
-            fetch("http:\/\/localhost:8080/handle", body)
+            fetch({{print .BrokerURL "/handle"}}, body)
             .then(response => response.json())
             .then(data => {
                 sent.innerHTML = JSON.stringify(payload, undefined, 4);
@@ -100,11 +100,11 @@
             const payload = {
                 action: 'log',
                 log: {
-                    name: "event from broker",
-                    data: "data from broker"
+                    name: "event for log from broker",
+                    data: "data for log from broker"
                 }
             }
-
+            console.log(payload)
             const headers = new Headers();
             headers.append("Content-Type", "application/json");
             const body = {
@@ -112,8 +112,8 @@
                 body: JSON.stringify(payload),
                 headers: headers
             }
-
-            fetch("http:\/\/localhost:8080/handle", body)
+            console.log('front end calling log service')
+            fetch({{print .BrokerURL "/handle"}}, body)
             .then(response => response.json())
             .then(data => {
                 sent.innerHTML = JSON.stringify(payload, undefined, 4);
@@ -148,7 +148,7 @@
                 headers: headers
             }
 
-            fetch("http:\/\/localhost:8080/handle", body)
+            fetch({{print .BrokerURL "/handle"}}, body)
             .then(response => response.json())
             .then(data => {
                 sent.innerHTML = JSON.stringify(payload, undefined, 4);

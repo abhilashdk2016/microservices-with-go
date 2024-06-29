@@ -84,8 +84,10 @@ func (app *Config) rpcListen() error {
 func connectToMongo() (*mongo.Client, error) {
 	clientOptions := options.Client().ApplyURI(mongoURL)
 	clientOptions.SetAuth(options.Credential{
-		Username: "admin",
-		Password: "password",
+		Username:      "admin",
+		Password:      "password",
+		AuthSource:    "admin",
+		AuthMechanism: "SCRAM-SHA-256",
 	})
 
 	c, err := mongo.Connect(context.TODO(), clientOptions)
